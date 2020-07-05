@@ -1,0 +1,406 @@
+Basic Commands 
+
+----------------------------------CHECKING BASIC INFORMATION ------------------------------------------------------
+
+1. $PSVersionTable --> Powershell version table. 
+2. ($PSVersionTable).OS --> List the OS Version. 
+3. (Get-WmiObject -class Win32_OperatingSystem).Caption 
+4. systeminfo
+5. Get-Date --> gives the current date.  
+6. (get-Culture).DateTimeFormat --> Date time format. 
+
+Date Examples:- Get-Date -UFormat “%A %m/%d/%Y %R %Z”  
+
+		%A	Day of the week – full name
+		%m	Month number
+		%d	Day of the month – 2 digits
+		%Y	Year in 4-digit format
+		%R	Time in 24-hour format -no seconds
+		%Z	Time zone offset from Universal Time Coordinate (UTC)
+
+Date Example2:- Get UTC time 
+        Get-Date -UFormat “%A %B/%d/%Y %T %Z”
+        $Time = Get-Date
+        $Time.ToUniversalTime()
+
+7. Get-WMIObject classess list. 
+Get-WMIObject -List| Where{$_.name -match "^Win32_"} | Sort Name | Format-Table Name
+
+8. Get-PSDrive ==> List all drives 
+   Get-Disk --> List the Hard disks attached to system. 
+
+9. Getting help from any command.
+      update-Help --> update the help file. 
+      get-help <command> --> will give the manual 
+      To see the examples, type: "get-help <cmd-name> -examples".
+      For more information, type: "get-help <cmd-name> -detailed".
+      For technical information, type: "get-help <cmd-name> -full".
+      For online help, type: "get-help <cmd-name> -online"       ==> Open up a Browser 
+	  For a Windows Based Opening: "get-help <cmd-name> -ShowWindow" ==> Open up a window. 
+
+10. Get what is in system Path 
+
+Get-ChildItem Env:PATH | format-list 
+
+11. List current users logged in 
+
+whoami
+(Get-WMIObject -class Win32_ComputerSystem | select username).username
+
+12. Get-Alias  --> List the aliases 
+    Set-Alias cwd Get-location
+
+13. Start-Transcript -path <directory> --> Record the History of Powershell execution
+14. Stop-Transcript --> Stop the Recording. 
+15. Get-Command --> List all commands in Powershell in our system. 
+
+16. Get-ChildItem --> Like Dir. 
+you can lsit the directories and files for current folder and remote folder. 
+
+Get-ChildItem -path <path> -recurse  
+
+17. When you get the ... in the formatting, you can use format-list 
+<Cmd-Let> | format-list 
+<Cmd-Let> | format-list | more 
+This is useful while checking the system logs. 
+
+18. Get-Unique 
+"hello","hello","pello","cello" | Get-Unique 
+
+19. Get-Command | get-Member 
+List all members 
+
+20. (Get-Command -CommandType cmdlets) 
+
+21. Get-History  --> List the History 
+
+22. Transcript - Powershell History 
+    Start-Transcript -path <directory> --> Record the History of Powershell execution
+    Stop-Transcript --> Stop the Recording. 
+
+23. Write-Host "Hi There"
+    Write-Host "Hi There" -Foregroundcolor red 
+    Write-Host "Hi THere" -Foregroundcolor red -Backgroundcolor cyan
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Installing and Configuring Powershell 
+    - For Windows 7 and Higher Versions Powershell comes by default. 
+    - In Windows Powershell has 2 Modes 
+            Windows Powershell 
+            Windows Powershell ISE (Integrated Scripting Language) - Like IDE. 
+    - Download the latest version of Powershell for windows and mac here. 
+            https://github.com/PowerShell/PowerShell
+      
+Installing & Searching Modules. 
+     - A Powershell Module is a package that contains PowerShell commands, such as cmdlets, providers, functions, workflows, variables, and aliases. People who write commands can use modules to organize their commands and share them with others 
+	 - Most of the Modules are Published in PowerShell Gallery --> https://www.powershellgallery.com/
+     - COmmands 
+	      Find-Module -Name AWS
+		  Find-Module -Name Az
+		  Install-Module -Name Az -AllowClobber -Scope CurrentUser
+          Install-Module -Name AzureAD -AllowClobber -Scope CurrentUser
+	      Install-Module -Name AzureRM -AllowClobber -Scope CurrentUser
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+		  
+-------------------------------------------------------------------------------------------------------------------------
+** Execution Policy In Powershell - PowerShell's execution policy is a safety feature that controls the conditions under which PowerShell loads configuration files and runs scripts. This feature helps prevent the execution of malicious scripts.
+
+Link --> https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7
+
+  AllSigned
+  ByPass 
+  Default
+  RemoteSigned
+  Restricted
+  Undefined --> Remove the 
+  Unrestricted 
+
+** Execution Policy Commands  
+
+Get-ExecutionPolicy 
+Get-ExecutionPolicy -List 
+Get-ExecutionPolicy -Scope CurrentUser 
+Set-ExecutionPolicy -ExecutionPolicy <PolicyName> -Scope <scope>
+
+
+Set-ExecutionPolicy -ExecutionPolicy Undefined -Scope LocalMachine   --> to remove the Complete Execution Policy. 
+-------------------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------File/Directory RELATED-------------------------------------------------------------------
+
+1. Create file 
+New-Item <Path> -type file/Directory -force 
+
+Eg:- 
+     New-Item c:\temp\test -Type Directory
+     New-Item c:\temp\test\test.ps1 -Type file
+     New-Item c:\temp\test\test.ps1 -Type file -force 
+     New-Item c:\temp\test\test.ps1 -Type file -force -value "(get-command).count"
+
+
+2. Get File Contents 
+Get-Content -Path c:\temp\test\test.ps1 
+Get-Content -Path c:\temp\test\test.ps1 | more    --> Read Line by line. 
+
+Example:- 
+
+PS C:\Users\703238631> $myline = Get-Content -PATH c:\temp\test\test.ps1
+PS C:\Users\703238631> $myline
+(get-command).count
+systeminfo
+get-date
+PS C:\Users\703238631> $myline[2]
+get-date
+PS C:\Users\703238631> $myline[0]
+(get-command).count
+
+
+3. Adding File Contents 
+
+"Content" >> <<PATH>>
+
+PS C:\Users\703238631> "Get-Process" >> C:\Temp\test\test.ps1
+PS C:\Users\703238631> Get-Content C:\Temp\test\test.ps1
+(get-command).count
+systeminfo
+get-date
+Get-Process
+PS C:\Users\703238631>   
+
+
+4. Removing file 
+
+Remove-Item -path <path> 
+Remove-Item -path <path>\* -Recursive [BE CAREFUL IN USING THIS COMMAND]
+Remove-Item -path <path>\* -exclude *.mp3 [Delete everything except mp3]
+Remove-Item -path <path>\* -include *.cpp,*.h [Delete everything except mp3]
+
+
+5. Rename & Move files 
+
+Rename-Item <file/folder-old-name> <file/folder-old-name>
+Move-Item <old-path> <new-path> 
+
+6. Copy files 
+
+Copy-Item <file-orig-path> <file-new-path> 
+Copy-Item <folder-orig-path>\* <folder-new-path>\*
+
+
+7. Test-Path  --> Check for file/folder existence 
+
+PS C:\Users\703238631> Test-Path 'C:\Temp\test\test.ps1'
+True
+PS C:\Users\703238631> Test-Path 'C:\Temp\test\test.ps11'
+False
+
+8. Diffence of files   
+
+PS C:\Users\703238631> Compare-Object (Get-Content 'C:\Temp\test\test.ps1')  (Get-Content 'C:\Temp\test\test2\test.ps1')
+
+InputObject SideIndicator
+----------- -------------
+tasklist    <=
+
+PS C:\Users\703238631> 
+
+9. Listing of files 
+
+dir --> Long Listing
+ls  --> Paragraph based listing. 
+Get-ChildItem --> List recursively. 
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------VARIABLE-------------------------------------------------------------------
+
+In Powershell every variable is declared with $ and accessed with $ 
+
+Example:- $myline = Get-Content -PATH c:\temp\test\test.ps1
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------SORT-OBJECT---------------------------------------------------------------------------
+
+Get-Process | sort-object CPU 
+Get-Process | sort-object CPU -Descending 
+Get-Process | sort-object CPU -Descending | more    
+Get-Process | sort-object CPU -Descending | Select-Object -First 5     --> List top 5 Process consuming Highest CPU
+Get-Process | Sort-Object -Property WS | Select-Object -Last 5    --> List top 5 Process consuming Highest Memory 
+Get-WinEvent -LogName system | select-object -last 5
+
+PS C:\Temp\test> $myvar = Get-WinEvent -LogName system | select-object -last 20 
+PS C:\Temp\test> $myvar | Group-object -Property Message
+PS C:\Temp\test> $myvar | Group-object -Property Message | format-list
+PS C:\Temp\test> $myvar | Group-object -Property Message | sort-object -property count -descending 
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------SELECT-OBJECT & FOREACH -------------------------------------------------------------
+
+Get-ChildItem | get-member 
+
+PS C:\Temp\test> Get-ChildItem C:\Temp\test\
+
+
+    Directory: C:\Temp\test
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d----            7/5/2020  7:10 AM                test1
+d----            7/5/2020  7:10 AM                test2
+-a---            7/5/2020  6:58 AM             59 test - Copy - Copy.ps1
+-a---            7/5/2020  6:58 AM             59 test - Copy.ps1
+-a---            7/5/2020  7:22 AM             69 test.ps1
+
+PS C:\Temp\test> Get-ChildItem C:\Temp\test\ | Select-Object Name,LastAccessTime,LastWriteTime
+
+Name                   LastAccessTime      LastWriteTime
+----                   --------------      -------------
+test1                  7/5/2020 7:10:16 AM 7/5/2020 7:10:16 AM
+test2                  7/5/2020 7:10:20 AM 7/5/2020 7:10:20 AM
+test - Copy - Copy.ps1 7/5/2020 7:09:27 AM 7/5/2020 6:58:30 AM
+test - Copy.ps1        7/5/2020 7:09:25 AM 7/5/2020 6:58:30 AM
+test.ps1               7/5/2020 7:22:10 AM 7/5/2020 7:22:10 AM
+
+
+If we see we dont see the Last Access time listed default, but you can get it from the Select-Object 
+PS C:\Temp\test> Get-ChildItem C:\Temp\test\ | Select-Object Name,{$_.creationTime.year}
+
+
+$_ --> variable , represents each objects , select-object will work on each object. 
+
+Get-ChildItem C:\Temp\test\ | ForEach-Object {Write-Host "theLast Access year is $_.creationTime}
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------where-object,group objects--------------------------------------------------
+
+where-objects is primarily used in finding based on sizes or lengths etc. 
+run the condition for each object. 
+
+Get-ChildItem *.exe | where-object { $_.length -lt 20240 }
+
+
+Group-Objects is to group based on a prperty 
+
+Example:- grouping files based on extension. 
+
+Get-ChildItem | group-object -Property Extension | format-list 
+
+
+Example:- Group Windows Logs occured by event id  
+
+Get-WinEvent -LogName "system" | select-object -Last 200 | Group-Object id
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+---------------------------------SYSTEM MONITORING ----------------------------------------------------------------------
+Get-Process
+      - Get-Process 
+      - Get-Process -Name notepad
+      - Get-Process [n]*[d]
+      - Get-Process [a-z]*[x-y]
+      - Get-Process [n]*[d] | stop-process -whatif
+      - Get-Process [n]*[d] | stop-process 
+      - Get-Process [n]*[d] | stop-process -confirm
+      - Get-Process [n]*[d] | stop-process | wait-process  --> [Graceful shutdown] 
+      - (Get-Process -Name notepad).kill 
+
+
+In Get-Process we can see below feilds 
+    - Handles - Open file descriptor 
+    - NPM(K) - Non Paged Memory 
+    - PM(K) - Paged Memory
+    - WS(K) - WOking set - Recently used memory 
+    - VM(M) - Virtual Memory 
+    - CPU(s) - CPU Usage
+    - Id - Process ID
+    - SI - Session ID
+    - ProcessName - Process Name 
+
+
+PS C:\Users\703238631> tasklist | select-string notepad
+
+notepad++.exe                59624 Console                    1     40,816 K
+notepad.exe                  44712 Console                    1     15,712 K
+
+
+PS C:\Users\703238631> stop-process 44712
+                       stop-process -Name "notepad"  
+PS C:\Users\703238631> taskill /F /PID 59624
+
+
+
+
+
+Get-Service 
+Get-Service | Sort-Object -Property @{Expression = "Status"; Descending = $True}, @{Expression = "DisplayName"; Descending = $False}
+
+   ps | sort -des cpu 
+   ps | sort -des cpu | select -f 15 | ft -a 
+   ps | sort -des cpu | select -f 15 | ft -a ;sleep 1;cls 
+   while(1) {ps | sort -des cpu | select -f 15 | ft -a ;sleep 1;cls}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------Export types---------------------------------------------------------------
+
+Get-Process | ConvertTo-html -property Handles, ProcessName 
+
+Get-Process | select-object Handles,ProcessName | Export-Csv c:\temp\test.csv
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------String Handling ------------------------------------------------------
+
+$mystr ="Hello there"
+$mystr | get-Member 
+$mystr.length 
+$mystr.tolower()
+$mystr.toUpper()
+$mystr.Substring(2,3)
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------Environment Variable -------------------------------------------------
+
+Get-ChildItem env: 
+
+Setting ENvironment variables. 
+
+PS C:\Windows\System32> $env:JAVA_HOME="c:\JAVA"
+PS C:\Windows\System32> $env:PATH=$env:PATH + ";;c:\JAVA\bin"
+PS C:\Windows\System32> $env:JAVA_HOME
+PS C:\Windows\System32> $env:PATH
+
+Remove-Item env:JAVA_HOME 
+
+
+[environment]::setEnvironmentVariable("JAVA_HOME","C:\JAVA","User")
+[environment]::getEnvironmentVariable("JAVA_HOME")
+
+-------------------------------------------------------------------------------------------------------------------------

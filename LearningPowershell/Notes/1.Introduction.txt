@@ -1,0 +1,23 @@
+Powershell 
+   - Its an Automation Framework built on .Net Framework built to provide a Uniform Commandline Experience to Administrators and other folks who want to control the system. 
+   - Official Microsoft Page --> https://docs.microsoft.com/en-us/powershell/ 
+   - Sample Powershell scripts --> https://docs.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration?view=powershell-7 
+
+Powershell follows Uniform Command Access (Verb-Noun Format) 
+   - Get-Process  [Get - Verb - doing something, Process - Noun]
+   - Stop-Process 
+   - Get-Content
+   - Start-Process 
+
+Powershell Command Types 
+   - Alias  - Shortform of someother command. 
+   - Cmdlet - Actual Powershell command built in .Net. Lightweight Command that can be executed in Powershell. 
+   - Functions - These are given by system and we can write some functions. 
+   - Scripts 
+   - Executable or Binary which are present in PATH 
+   
+Pipelining in powershell is a concept to send the output of cmdlet/function to anathor set of cmdlet/function using | . Unlike Unix the data passed in pipe are objects rather than text.
+
+
+
+

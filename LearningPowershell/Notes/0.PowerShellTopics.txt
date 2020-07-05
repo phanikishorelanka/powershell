@@ -1,0 +1,18 @@
+Topics 
+  1. Introduction to Powershell 
+  2. Start Transcript and Powershell Version 
+  3. Execution Policy 
+  4. How to get and set aliases and how to use pushd and popd 
+  5. Get-childItem and formatting the output of command 
+  6. Get-COmmand and how to navigate help, measure-obbject and count 
+  7. File Handling like New-Item, Get-Content, Remove-Item, Rename-Item, Move-Item 
+  8. Sorting the object and grouping
+  9. Selecting an Object and iterating using foreach-object 
+  10. Filtering using where-object and some more examples of group-object 
+  11. Get-Process and how to stop a process or kill it 
+  12. Important Powershell commands like Stop Process , Convert Data to HTML or CSV. 
+  13. String Handling in Powershell 
+  14. Navigating Help in Powershell to look for Event Logs. 
+  15. Envrionment Variables Part 1 
+  16. Persistent Environment Variable in Registry 
+  

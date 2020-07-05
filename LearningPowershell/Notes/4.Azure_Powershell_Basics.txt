@@ -1,0 +1,36 @@
+Azure Powershell Basics 
+
+https://cdn.comparitech.com/wp-content/uploads/2018/08/Comparitech-Powershell-cheatsheet.pdf
+
+
+Install 
+https://slstudentpublic.blob.core.windows.net/operations/PowerShell%20Guide_AZ__Skylines%20Academy-v3-Student.pdf
+https://slstudentpublic.blob.core.windows.net/operations/PowerShell%20Guide_Skylines%20Academy.pdf 
+
+
+Find-Module -Name az*
+Install-Module -Name Az -AllowClobber -Scope CurrentUser
+Install-Module -Name AzureAD -AllowClobber -Scope CurrentUser
+Install-Module -Name AzureRM -AllowClobber -Scope CurrentUser
+
+Install-Module -Name AzSentinel -AllowClobber -Scope CurrentUser
+
+
+Connect-AzAccount # Connect Azure through PS
+	Disconnect-AzAccount # Disconnect Azure through PS
+	Get-AzSubscription # List all subscriptions in all tenants the account can access
+	Get-AzSubscription -TenantId # Get subscriptions in a specific tenant
+	Select-AzSubscription – SubscriptionID “SubscriptonID”  # Choose subscription 
+	Get-AzResourceGroup # List all resource groups
+	Get-AzResourceGroup -Name "SkylinesRG”  # Retrieve Specific Resource Group 
+	Get-AzResourceGroup | Where ResourceGroupName -like Skylines* # List All Resource Groups based on string 
+	Get-AzResourceGroup | Sort Location,ResourceGroupName | # Resource Group by Location 
+	Get-AzResource-ResourceGroupName "Name" # Find resources in a resource group with a specific name 
+	Get-AzPolicyDefinition # See all policy definitions in your subscription
+	Get-AzVM # List all VMs in current subscription
+	Get-AzVM -ResourceGroupName $sIResourceGroup# List VMs in a resource group 
+	Get-AzVM -ResourceGroupName “slresourcegroup” -Name “myVM”  # Find a specific VM by its name inside of RG
+	Get-AzRoleDefinition # List of built-in RBAC
+	Get-AzRoleDefinition "Name of the RBAC"
+	Get-AzRoleDefinition "Virtual Machine Operator" | ConvertTo-Json 
+	(Get-AzRoleDefinition "Virtual Machine Operator").Actions # List just the actions of the role
