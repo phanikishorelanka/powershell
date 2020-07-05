@@ -81,6 +81,9 @@ List all members
 23. Write-Host "Hi There"
     Write-Host "Hi There" -Foregroundcolor red 
     Write-Host "Hi THere" -Foregroundcolor red -Backgroundcolor cyan
+    
+24. Out-File 
+    Get-Process | Out-file -FilePath c:\temp\test.txt 
 
 -------------------------------------------------------------------------------------------------------------------------
 
