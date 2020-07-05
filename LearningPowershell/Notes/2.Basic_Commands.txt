@@ -227,6 +227,8 @@ In Powershell every variable is declared with $ and accessed with $
 
 Example:- $myline = Get-Content -PATH c:\temp\test\test.ps1
 
+Automatic Variables --> https://www.javatpoint.com/powershell-automatic-variables 
+
 -------------------------------------------------------------------------------------------------------------------------
 
 
