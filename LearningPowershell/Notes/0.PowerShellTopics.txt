@@ -16,3 +16,19 @@ Topics
   15. Envrionment Variables Part 1 
   16. Persistent Environment Variable in Registry 
   
+  17. Powershell Remoting 
+  18. WMI & CIM
+      WMI - Windows Management INstrumentation 
+      CIM - Common Information Model. 	  
+  19. Powershell Jobs - Foreground and background. 
+  20. Powrshell pipeline & Advanced Pipeline Techniques. 
+  21. Script Blocks. 
+  22. Functions. 
+  23. Advanced Functions
+  24. Workflows. 
+  
+  
+  arrays, 
+  Conditions, 
+  Loops, 
+  

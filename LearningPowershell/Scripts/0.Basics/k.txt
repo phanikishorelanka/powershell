@@ -1,0 +1,7 @@
+
+[91mWrite-Error: [0mC:\Users\703238631\github\powershell\LearningPowershell\Scripts\0.Basics\5.Redirect_operators.ps1:7:1
+[96mLine |
+[96m   7 | [0m [96m&{Write-Error "hello"} 2>&1 > k.txt[0m
+[96m     | [91m ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[91m[96m     | [91mhello
+[0m

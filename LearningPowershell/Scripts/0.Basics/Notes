@@ -1,0 +1,27 @@
+Powershell has 6 types of operators 
+
+1. Arithmetic Operators  
+      - to perform the calculation of the numeric values
+      - add (+), subtract (-), multiply (*), divide (/), modulus (%)
+
+2. Assignment Operators
+      -  to assign, change, or append the values in a variable
+      - +=, -=, *=, /=, %= 
+3. Comparison Operators
+      - comparison operators are used in PowerShell to compare the values. For example, we can compare the string of two values to check that they are equal or not.
+           - Equality Operators 
+                    -eq, -ne, -gt, -ge, -lt, -le 
+           - Matching Operators 
+                    -like,-notlike,-match,-notmatch
+           - Containment Operators 
+                    -contains, -notcontains, -in, -notin
+           - Redirection Operators 
+                    - >, >>, >&1
+           - Type Comparison Operators.  
+                    -is, -isnot 
+4. Logical Operators
+      - logical operators are used in PowerShell to connect expressions or statements together to form a single expression. Those expressions which contain the logical operators usually result in the Boolean values True or False.
+5. Redirection Operators
+      - redirection operators are used in PowerShell to redirect the output of one command as an input to another command. This operator describes how to redirect the output from the PowerShell to the text files.
+6. Split and Join Operators
+      - Split and Join operators are used in PowerShell to divide and combine the substrings. The Join operator is used to concatenate the multiple strings into a single string. The split operator is used to split a string into substrings.
